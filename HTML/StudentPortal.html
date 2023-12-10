@@ -1,0 +1,104 @@
+<html>
+  <title>Student info</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    button {
+      background-color: #04aa6d;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover {
+      opacity: 0.8;
+    }
+    h1 {
+      text-align: center;
+    }
+    h2 {
+      text-align: center;
+    }
+    h1.solid {
+      border-style: solid;
+      color: Green;
+      background: white;
+    }
+    h2.inside {
+      border-style: solid;
+      color: Blue;
+      background: white;
+    }
+    .returnToPortal {
+      width: 100px;
+      background-color: blue;
+    }
+  </style>
+
+  <body>
+    <h1 class="solid">Student information</h1>
+    <a href="/studentLogin">
+      <button type="button" class="returnToPortal">Back to portal</button>
+    </a>
+    <br />
+    <form>
+      <label for="name">Name:</label><br />
+      <p id="name">Dummy</p>
+      <br />
+      <label for="contact">Contact Number:</label><br />
+      <p id="number"></p>
+      <label for="subject1">Subject 1:</label><br />
+      <p id="sub1"></p>
+      <br />
+      <label for="sub1">Subject 2:</label><br />
+      <p id="sub2"></p>
+      <br />
+      <label for="sub2">Subject 3:</label><br />
+      <p id="sub3"></p>
+      <br />
+      <label for="sub">Subject 4:</label><br />
+      <p id="sub4"></p>
+      <br />
+      <label for="gpa">GPA:</label><br />
+      <p id="gpa"></p>
+      <br />
+    </form>
+  </body>
+
+  <script>
+    const username = localStorage.getItem("username");
+    const name = document.getElementById("name");
+    name.innerHTML = username;
+
+    const data = { username: username };
+
+    fetch("http://localhost:3000/student/getInfo", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((j) => {
+        const num = document.getElementById("number");
+        num.innerHTML = j.number;
+
+        const sub1 = document.getElementById("sub1");
+        sub1.innerHTML = j.sub1;
+
+        const sub2 = document.getElementById("sub2");
+        sub2.innerHTML = j.sub2;
+
+        const sub3 = document.getElementById("sub3");
+        sub3.innerHTML = j.sub3;
+
+        const sub4 = document.getElementById("sub4");
+        sub4.innerHTML = j.sub4;
+
+        const gpa = document.getElementById("gpa");
+        gpa.innerHTML = j.gpa;
+      });
+  </script>
+</html>

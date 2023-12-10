@@ -1,0 +1,14 @@
+{
+  "Accounts": [
+    {
+      "username": "Teacher1",
+      "password": "t0000001",
+      "name": "Dummy 2"
+    },
+    {
+      "username": "Teacher2",
+      "password": "t0000002",
+      "name": "Dummy 3"
+    }
+  ]
+}

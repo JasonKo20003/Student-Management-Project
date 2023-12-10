@@ -1,0 +1,353 @@
+<html>
+  <head>
+    <title>Teacher Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      button {
+        background-color: #04aa6d;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+      }
+      button:hover {
+        opacity: 0.8;
+      }
+      h1 {
+        text-align: center;
+      }
+      h2 {
+        text-align: center;
+      }
+      h1.solid {
+        border-style: solid;
+        color: Green;
+        background: white;
+      }
+      h2.inside {
+        border-style: solid;
+        color: Blue;
+        background: white;
+      }
+      .logoutButton {
+        width: 100px;
+        background-color: blue;
+      }
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      td,
+      th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1 class="solid">HKMU Teacher portal</h1>
+    <h2 id="name"></h2>
+    <a href="/teacherLogin">
+      <button type="button" class="logoutButton">Log out</button>
+    </a>
+    <table>
+      <tr>
+        <td>Name</td>
+        <td>Subject 1</td>
+        <td>Subject 2</td>
+        <td>Subject 3</td>
+        <td>Subject 4</td>
+        <td>GPA</td>
+        <td>Update</td>
+      </tr>
+      <tr>
+        <td id="name1">Dummy 4</td>
+        <td>
+          <input type="text" id="sub11" name="dummy1sub1" value="" />
+        </td>
+        <td>
+          <input type="text" id="sub21" name="dummy1sub2" value="" />
+        </td>
+        <td>
+          <input type="text" id="sub31" name="dummy1sub3" value="" />
+        </td>
+        <td>
+          <input type="text" id="sub41" name="dummy1sub4" value="" />
+        </td>
+        <td><input type="text" id="gpa1" name="dummy1gpa" value="" /></td>
+        <td><button id="button1">update</button></td>
+      </tr>
+      <tr>
+        <td id="name2">Dummy 5</td>
+        <td>
+          <input type="text" id="sub12" name="dummy2sub1" value="" />
+        </td>
+        <td>
+          <input type="text" id="sub22" name="dummy2sub2" value="" />
+        </td>
+        <td>
+          <input type="text" id="sub32" name="dummy2sub3" value="" />
+        </td>
+        <td>
+          <input type="text" id="sub42" name="dummy2sub4" value="" />
+        </td>
+        <td><input type="text" id="gpa2" name="dummy2gpa" value="" /></td>
+        <td><button id="button2">update</button></td>
+      </tr>
+      <tr>
+        <td id="name3">Dummy 6</td>
+        <td>
+          <input type="text" id="sub13" name="dummy3sub1" value="" />
+        </td>
+        <td>
+          <input type="text" id="sub23" name="dummy3sub2" value="" />
+        </td>
+        <td>
+          <input type="text" id="sub33" name="dummy3sub3" value="" />
+        </td>
+        <td>
+          <input type="text" id="sub43" name="dummy3sub4" value="" />
+        </td>
+        <td><input type="text" id="gpa3" name="dummy3gpa" value="" /></td>
+        <td><button id="button3">update</button></td>
+      </tr>
+      <tr>
+        <td id="name4">Dummy 7</td>
+        <td>
+          <input type="text" id="sub14" name="dummy4sub1" value="" />
+        </td>
+        <td>
+          <input type="text" id="sub24" name="dummy4sub2" value="" />
+        </td>
+        <td>
+          <input type="text" id="sub34" name="dummy4sub3" value="" />
+        </td>
+        <td>
+          <input type="text" id="sub44" name="dummy4sub4" value="" />
+        </td>
+        <td><input type="text" id="gpa4" name="dummy4gpa" value="" /></td>
+        <td><button id="button4">update</button></td>
+      </tr>
+    </table>
+  </body>
+
+  <script>
+    const username = localStorage.getItem("username");
+    const name = document.getElementById("name");
+    name.innerHTML = "Welcome " + username;
+
+    const data = { username: username };
+
+    fetch("http://localhost:3000/teacher/getInfo", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((j) => {
+        const name1 = document.getElementById("name1");
+        name1.innerHTML = j[0].name;
+
+        const sub11 = document.getElementById("sub11");
+        sub11.value = j[0].sub1;
+
+        const sub21 = document.getElementById("sub21");
+        sub21.value = j[0].sub2;
+
+        const sub31 = document.getElementById("sub31");
+        sub31.value = j[0].sub3;
+
+        const sub41 = document.getElementById("sub41");
+        sub41.value = j[0].sub4;
+
+        const gpa1 = document.getElementById("gpa1");
+        gpa1.value = j[0].gpa;
+
+        // student 2
+
+        const name2 = document.getElementById("name2");
+        name2.innerHTML = j[1].name;
+
+        const sub12 = document.getElementById("sub12");
+        sub12.value = j[1].sub1;
+
+        const sub22 = document.getElementById("sub22");
+        sub22.value = j[1].sub2;
+
+        const sub32 = document.getElementById("sub32");
+        sub32.value = j[1].sub3;
+
+        const sub42 = document.getElementById("sub42");
+        sub42.value = j[1].sub4;
+
+        const gpa2 = document.getElementById("gpa2");
+        gpa2.value = j[1].gpa;
+
+        // student 3
+
+        const name3 = document.getElementById("name3");
+        name3.innerHTML = j[2].name;
+
+        const sub13 = document.getElementById("sub13");
+        sub13.value = j[2].sub1;
+
+        const sub23 = document.getElementById("sub23");
+        sub23.value = j[2].sub2;
+
+        const sub33 = document.getElementById("sub33");
+        sub33.value = j[2].sub3;
+
+        const sub43 = document.getElementById("sub43");
+        sub43.value = j[2].sub4;
+
+        const gpa3 = document.getElementById("gpa3");
+        gpa3.value = j[2].gpa;
+
+        // student 4
+
+        const name4 = document.getElementById("name4");
+        name4.innerHTML = j[3].name;
+
+        const sub14 = document.getElementById("sub14");
+        sub14.value = j[3].sub1;
+
+        const sub24 = document.getElementById("sub24");
+        sub24.value = j[3].sub2;
+
+        const sub34 = document.getElementById("sub34");
+        sub34.value = j[3].sub3;
+
+        const sub44 = document.getElementById("sub44");
+        sub44.value = j[3].sub4;
+
+        const gpa4 = document.getElementById("gpa4");
+        gpa4.value = j[3].gpa;
+      });
+
+    function edit4() {
+      const name = document.getElementById("name4").innerHTML;
+      const sub1 = document.getElementById("sub14").value;
+      const sub2 = document.getElementById("sub24").value;
+      const sub3 = document.getElementById("sub34").value;
+      const sub4 = document.getElementById("sub44").value;
+      const gpa = document.getElementById("gpa4").value;
+
+      const data = {
+        name: name,
+        sub1: sub1,
+        sub2: sub2,
+        sub3: sub3,
+        sub4: sub4,
+        gpa: gpa,
+      };
+
+      console.log(data);
+
+      fetch("http://localhost:3000/update/student", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+    }
+    const button4 = document.getElementById("button4");
+    button4.addEventListener("click", edit4);
+
+    // update 2
+
+    function edit3() {
+      const name = document.getElementById("name3").innerHTML;
+      const sub1 = document.getElementById("sub13").value;
+      const sub2 = document.getElementById("sub23").value;
+      const sub3 = document.getElementById("sub33").value;
+      const sub4 = document.getElementById("sub43").value;
+      const gpa = document.getElementById("gpa3").value;
+
+      const data = {
+        name: name,
+        sub1: sub1,
+        sub2: sub2,
+        sub3: sub3,
+        sub4: sub4,
+        gpa: gpa,
+      };
+
+      console.log(data);
+
+      fetch("http://localhost:3000/update/student", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+    }
+    const button3 = document.getElementById("button3");
+    button3.addEventListener("click", edit3);
+
+    // update 3
+
+    function edit2() {
+      const name = document.getElementById("name2").innerHTML;
+      const sub1 = document.getElementById("sub12").value;
+      const sub2 = document.getElementById("sub22").value;
+      const sub3 = document.getElementById("sub32").value;
+      const sub4 = document.getElementById("sub42").value;
+      const gpa = document.getElementById("gpa2").value;
+
+      const data = {
+        name: name,
+        sub1: sub1,
+        sub2: sub2,
+        sub3: sub3,
+        sub4: sub4,
+        gpa: gpa,
+      };
+
+      console.log(data);
+
+      fetch("http://localhost:3000/update/student", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+    }
+    const button2 = document.getElementById("button2");
+    button2.addEventListener("click", edit2);
+
+    // update 4
+
+    function edit1() {
+      const name = document.getElementById("name1").innerHTML;
+      const sub1 = document.getElementById("sub11").value;
+      const sub2 = document.getElementById("sub21").value;
+      const sub3 = document.getElementById("sub31").value;
+      const sub4 = document.getElementById("sub41").value;
+      const gpa = document.getElementById("gpa1").value;
+
+      const data = {
+        name: name,
+        sub1: sub1,
+        sub2: sub2,
+        sub3: sub3,
+        sub4: sub4,
+        gpa: gpa,
+      };
+
+      console.log(data);
+
+      fetch("http://localhost:3000/update/student", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+    }
+    const button1 = document.getElementById("button1");
+    button1.addEventListener("click", edit1);
+  </script>
+</html>

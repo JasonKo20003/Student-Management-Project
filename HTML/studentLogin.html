@@ -1,0 +1,97 @@
+<html>
+  <head>
+<title>Student Login</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <style>
+   form {border: 3px solid #f1f1f1;}
+   input[type=text], input[type=password] {
+     width: 100%;
+     padding: 12px 20px;
+     margin: 8px 0;
+     display: inline-block;
+     border: 1px solid #ccc;
+     box-sizing: border-box;
+   }
+   button {
+     background-color: #04AA6D;
+     color: white;
+     padding: 14px 20px;
+     margin: 8px 0;
+     border: none;
+     cursor: pointer;
+     width: 100%;
+   }
+   button:hover {
+     opacity: 0.8;
+   }
+   .container {
+     padding: 16px;
+   }
+   .returnButton {
+     width:100px;
+     background-color: blue;
+   }
+
+   </style>
+
+  </head>
+
+<body>
+  <a href="/selectLogin">
+    <button type="button" class="returnButton">Return to menu</button>
+  </a>
+<h2>Student Login</h2>
+<div class = "container">
+
+<label for="uname"><b>Username</b></label>
+<input type="text" id="username" placeholder="Enter Username" name="uname" required>
+
+<label for="psw"><b>Password</b></label>
+<input type="password" id="password" placeholder="Enter Password" name="psw" required>
+
+<button id="submit">Login</button>
+<label>
+  <input type="checkbox" checked="checked" name="remember"> Remember me
+</label>
+
+</body>
+<script>
+
+function login(){
+  const username = document.getElementById("username").value;
+  console.log(username);
+  const password = document.getElementById("password").value;
+  console.log(password);
+
+  const data = {
+    username: username,
+    password: password,
+  };
+
+  let reply = 'false';
+
+  fetch('http://localhost:3000/login/student', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(data),
+  })
+    .then(res => {
+      return res.text();
+    })
+    .then(text => {
+      reply = text;
+      if (reply == "true") {
+      localStorage.setItem("username", username);
+      location.href = "./StudentPortal";
+    }
+    else{
+      alert("Password incorrect. Try again.")
+    }
+    });
+}
+const button = document.getElementById("submit");
+button.addEventListener("click", login);
+
+</script>
+
+</html>
